@@ -3,5 +3,7 @@
 
 class CGrafika
 {
+public:
+	void rysuj();
 };
 

@@ -33,7 +33,7 @@
     <ClCompile Include="CSkRownorzed.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="CSkNierownorzed.cpp">
+    <ClCompile Include="CSkNRownorzed.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CSkKierowane.cpp">
@@ -77,7 +77,7 @@
     <ClInclude Include="CSkRownorzed.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="CSkNierownorzed.h">
+    <ClInclude Include="CSkNRownorzed.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CSkKierowane.h">

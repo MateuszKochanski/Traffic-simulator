@@ -3,5 +3,6 @@
 class CUprzywilejowany :
     public CPojazd
 {
+
 };
 

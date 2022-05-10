@@ -1,13 +1,11 @@
 #pragma once
 #include "CSkrzyzowanie.h"
-#include "CSwiatla.h"
-#include <vector>
+#include "CZnak.h"
 
-class CSkKierowane :
+class CSkNRownorzed :
     public CSkrzyzowanie
 {
-private:
-
+    vector <CZnak*> znaki;
 public:
     void co();
     void update(int, int);

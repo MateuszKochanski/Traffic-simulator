@@ -159,7 +159,7 @@
     <ClCompile Include="CPojazd.cpp" />
     <ClCompile Include="CRondo.cpp" />
     <ClCompile Include="CSkKierowane.cpp" />
-    <ClCompile Include="CSkNierownorzed.cpp" />
+    <ClCompile Include="CSkNRownorzed.cpp" />
     <ClCompile Include="CSkRownorzed.cpp" />
     <ClCompile Include="CSkrzyzowanie.cpp" />
     <ClCompile Include="CSwiatla.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="CPojazd.h" />
     <ClInclude Include="CRondo.h" />
     <ClInclude Include="CSkKierowane.h" />
-    <ClInclude Include="CSkNierownorzed.h" />
+    <ClInclude Include="CSkNRownorzed.h" />
     <ClInclude Include="CSkRownorzed.h" />
     <ClInclude Include="CSkrzyzowanie.h" />
     <ClInclude Include="CSwiatla.h" />

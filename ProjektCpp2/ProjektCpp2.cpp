@@ -1,9 +1,10 @@
 ﻿#include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "CMapa.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");
+    /*sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");
     sf::CircleShape shape(300.f);
     shape.setFillColor(sf::Color::Green);
 
@@ -19,7 +20,10 @@ int main()
         window.clear();
         window.draw(shape);
         window.display();
-    }
+    }*/
+    CMapa mapa;
+    mapa.wczytajMape("mapa.txt");
+
 
     return 0;
 }
