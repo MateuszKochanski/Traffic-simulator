@@ -155,6 +155,7 @@
     <ClCompile Include="CGrafika.cpp" />
     <ClCompile Include="CKierowca.cpp" />
     <ClCompile Include="CMapa.cpp" />
+    <ClCompile Include="CObserwowana.cpp" />
     <ClCompile Include="COsobowy.cpp" />
     <ClCompile Include="CPojazd.cpp" />
     <ClCompile Include="CRondo.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="CGrafika.h" />
     <ClInclude Include="CKierowca.h" />
     <ClInclude Include="CMapa.h" />
+    <ClInclude Include="CObserwowana.h" />
     <ClInclude Include="COsobowy.h" />
     <ClInclude Include="CPojazd.h" />
     <ClInclude Include="CRondo.h" />

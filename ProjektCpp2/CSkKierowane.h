@@ -11,5 +11,6 @@ private:
 public:
     void co();
     void update(int, int);
+
 };
 

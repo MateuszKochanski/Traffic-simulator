@@ -6,8 +6,10 @@ class CSkNRownorzed :
     public CSkrzyzowanie
 {
     vector <CZnak*> znaki;
+
 public:
     void co();
     void update(int, int);
+
 };
 

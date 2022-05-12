@@ -9,3 +9,4 @@ void CSkKierowane::update(int id, int pierw)
 {
 	id_dorogi.push_back(id);
 }
+

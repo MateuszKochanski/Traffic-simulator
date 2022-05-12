@@ -1,12 +1,16 @@
-﻿#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
+﻿//#include <SFML/Window.hpp>
+//#include <SFML/Graphics.hpp>
 #include "CMapa.h"
+#include "CGrafika.h"
 
 int main()
 {
-    /*sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");
-    sf::CircleShape shape(300.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(1500, 800), "Symulator ruchu drogowego",sf::Style::Close, sf::ContextSettings(24, 8, 4));
+    window.setFramerateLimit(100);
+    
+    CMapa mapa;
+    mapa.wczytajMape("mapa.txt");
+    CGrafika grafika(&window,&mapa);
 
     while (window.isOpen())
     {
@@ -16,14 +20,10 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         window.clear();
-        window.draw(shape);
+        grafika.rysuj();
         window.display();
-    }*/
-    CMapa mapa;
-    mapa.wczytajMape("mapa.txt");
-
+    }
 
     return 0;
 }

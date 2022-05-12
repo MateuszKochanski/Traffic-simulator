@@ -24,6 +24,7 @@ public:
 	void wczytajSkrzyzowania(string);
 	void wczytajDrogi(string);
 	void odswierz();
-
+	vector <CDroga*> getDrogi();
+	vector <CSkrzyzowanie*> getSkrzyzowania();
 };
 
