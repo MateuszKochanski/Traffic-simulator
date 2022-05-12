@@ -1,0 +1,1 @@
+#include "CZarzadzanieGrafika.h"

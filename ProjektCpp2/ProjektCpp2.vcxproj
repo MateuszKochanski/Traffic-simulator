@@ -152,38 +152,50 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CDroga.cpp" />
+    <ClCompile Include="CDrogaGrafika.cpp" />
     <ClCompile Include="CGrafika.cpp" />
     <ClCompile Include="CKierowca.cpp" />
     <ClCompile Include="CMapa.cpp" />
+    <ClCompile Include="CObserwator.cpp" />
     <ClCompile Include="CObserwowana.cpp" />
     <ClCompile Include="COsobowy.cpp" />
     <ClCompile Include="CPojazd.cpp" />
-    <ClCompile Include="CRondo.cpp" />
-    <ClCompile Include="CSkKierowane.cpp" />
-    <ClCompile Include="CSkNRownorzed.cpp" />
-    <ClCompile Include="CSkRownorzed.cpp" />
+    <ClCompile Include="CPojazdGrafika.cpp" />
     <ClCompile Include="CSkrzyzowanie.cpp" />
+    <ClCompile Include="CSkrzyzowanieGrafika.cpp" />
     <ClCompile Include="CSwiatla.cpp" />
+    <ClCompile Include="CSwiatlaGrafika.cpp" />
+    <ClCompile Include="CSymulacja.cpp" />
     <ClCompile Include="CUprzywilejowany.cpp" />
+    <ClCompile Include="CWczytywaczMapy.cpp" />
+    <ClCompile Include="CZarzadzanieGrafika.cpp" />
+    <ClCompile Include="CZarzadzaniePojazdami.cpp" />
     <ClCompile Include="CZnak.cpp" />
+    <ClCompile Include="CZnakGrafika.cpp" />
     <ClCompile Include="ProjektCpp2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CDroga.h" />
+    <ClInclude Include="CDrogaGrafika.h" />
     <ClInclude Include="CGrafika.h" />
     <ClInclude Include="CKierowca.h" />
     <ClInclude Include="CMapa.h" />
+    <ClInclude Include="CObserwator.h" />
     <ClInclude Include="CObserwowana.h" />
     <ClInclude Include="COsobowy.h" />
     <ClInclude Include="CPojazd.h" />
-    <ClInclude Include="CRondo.h" />
-    <ClInclude Include="CSkKierowane.h" />
-    <ClInclude Include="CSkNRownorzed.h" />
-    <ClInclude Include="CSkRownorzed.h" />
+    <ClInclude Include="CPojazdGrafika.h" />
     <ClInclude Include="CSkrzyzowanie.h" />
+    <ClInclude Include="CSkrzyzowanieGrafika.h" />
     <ClInclude Include="CSwiatla.h" />
+    <ClInclude Include="CSwiatlaGrafika.h" />
+    <ClInclude Include="CSymulacja.h" />
     <ClInclude Include="CUprzywilejowany.h" />
+    <ClInclude Include="CWczytywaczMapy.h" />
+    <ClInclude Include="CZarzadzanieGrafika.h" />
+    <ClInclude Include="CZarzadzaniePojazdami.h" />
     <ClInclude Include="CZnak.h" />
+    <ClInclude Include="CZnakGrafika.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

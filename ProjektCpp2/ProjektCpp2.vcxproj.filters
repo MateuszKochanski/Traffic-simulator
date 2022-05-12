@@ -1,114 +1,174 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Pliki źródłowe">
+    <Filter Include="Logika">
+      <UniqueIdentifier>{ab942fc1-fdec-4ace-8dff-ba55d3d63a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grafika">
+      <UniqueIdentifier>{8bdbea0a-31d8-4c56-976d-7bba521e0c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logika\Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Logika\Pliki źródłowe">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Pliki nagłówkowe">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Grafika\Pliki źródłowe">
+      <UniqueIdentifier>{f8277f7a-00de-46f5-9d95-5cd7027f5e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grafika\Pliki nagłówkowe">
+      <UniqueIdentifier>{b9e16c38-d881-441d-810a-7943fe82f742}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pliki zasobów">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Interfejs">
+      <UniqueIdentifier>{6745c4f8-93dc-46d1-9e41-85adefc7d52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfejs\Pliki źródłowe">
+      <UniqueIdentifier>{da555987-70a6-404f-8a4a-7b48329cac6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfejs\Pliki nagłówkowe">
+      <UniqueIdentifier>{29a7bb55-9d24-4c4f-9068-0f3a5dee2b86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{eeeaeeb3-f06f-4a7f-a7df-de9859d4a3ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ProjektCpp2.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="CMapa.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CDroga.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CSkrzyzowanie.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CRondo.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CSkRownorzed.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CSkNRownorzed.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CSkKierowane.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CZnak.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CSwiatla.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CPojazd.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="COsobowy.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CUprzywilejowany.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CKierowca.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="CGrafika.cpp">
-      <Filter>Pliki źródłowe</Filter>
+    <ClCompile Include="CZnakGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwiatlaGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkrzyzowanieGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CPojazdGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CDrogaGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CObserwowana.cpp">
-      <Filter>Pliki źródłowe</Filter>
+      <Filter>Interfejs\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CObserwator.cpp">
+      <Filter>Interfejs\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjektCpp2.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CSymulacja.cpp">
+      <Filter>Logika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CWczytywaczMapy.cpp">
+      <Filter>Logika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CZarzadzaniePojazdami.cpp">
+      <Filter>Logika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CZarzadzanieGrafika.cpp">
+      <Filter>Grafika\Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMapa.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CDroga.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CSkrzyzowanie.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="CRondo.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="CSkRownorzed.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="CSkNRownorzed.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="CSkKierowane.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CZnak.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CSwiatla.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CPojazd.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="COsobowy.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CUprzywilejowany.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CKierowca.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="CGrafika.h">
-      <Filter>Pliki nagłówkowe</Filter>
+    <ClInclude Include="CZnakGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwiatlaGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkrzyzowanieGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CDrogaGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CPojazdGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CObserwowana.h">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Interfejs\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CObserwator.h">
+      <Filter>Interfejs\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CSymulacja.h">
+      <Filter>Logika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CWczytywaczMapy.h">
+      <Filter>Logika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CZarzadzaniePojazdami.h">
+      <Filter>Logika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CZarzadzanieGrafika.h">
+      <Filter>Grafika\Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
