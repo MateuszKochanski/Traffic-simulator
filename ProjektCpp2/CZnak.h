@@ -2,9 +2,9 @@
 class CZnak
 {
 	
-	bool typ; //1 - pierwszeñstwo przejazdu, 0 - ust¹p perwszeñstwo
+	char typ; // 0'U' - ust¹p perwszeñstwo, 1'P' - pierwszeñstwo przejazdu,2'R' - rondo
 public:
-
-	CZnak(bool);
+	CZnak(char); 
+	char getTyp();
 };
 

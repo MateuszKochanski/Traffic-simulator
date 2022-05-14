@@ -1,5 +1,7 @@
 #pragma once
-class CPojazd
+#include "CObserwowana.h"
+
+class CPojazd : public CObserwowana
 {
 private:
 	int ID;
@@ -13,5 +15,9 @@ public:
 	int getY();
 	int getIDDrogi();
 	int getOdleglosc();
+
+	void attach(CObserwator*);
+	void detach(CObserwator*);
+	void notify();
 };
 

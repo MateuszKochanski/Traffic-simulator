@@ -1,6 +1,11 @@
 #include "CZnak.h"
 
-CZnak::CZnak(bool a)
+CZnak::CZnak(char a)
 {
 	typ = a;
+}
+
+char CZnak::getTyp()
+{
+	return typ;
 }

@@ -2,15 +2,18 @@
 //#include <SFML/Graphics.hpp>
 #include "CMapa.h"
 #include "CGrafika.h"
+#include "CWczytywaczMapy.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1500, 800), "Symulator ruchu drogowego",sf::Style::Close, sf::ContextSettings(24, 8, 4));
-    window.setFramerateLimit(100);
+    window.setFramerateLimit(50);
     
+
     CMapa mapa;
-    mapa.wczytajMape("mapa.txt");
     CGrafika grafika(&window,&mapa);
+    mapa.attach(&grafika); 
+    CWczytywaczMapy wczytywacz(&mapa, "mapa.txt");
 
     while (window.isOpen())
     {
@@ -21,9 +24,10 @@ int main()
                 window.close();
         }
         window.clear();
+        mapa.odswierz(50);
         grafika.rysuj();
         window.display();
     }
-
+ 
     return 0;
 }

@@ -5,113 +5,113 @@ CGrafika::CGrafika(sf::RenderWindow* w, CMapa* m)
 {
 	window = w;
 	mapa = m;
+	update(0);
+}
+
+void CGrafika::update(int arg)
+{
+	int x;
+	int y;
+	int dl;
+	double kat;
+	bool czyRondo;
+
+	double sinus;
+	double cosinus;
+
+	CSkrzyzowanieGrafika* S;
+	CDrogaGrafika* D;
+	CZnakGrafika* Z;
+	CSwiatlaGrafika* Sw;
+
+	for (int i = 0; i < mapa->getSkrzyzowania().size(); i++)
+	{
+		czyRondo = false;
+		for (int j = 0; j < mapa->getSkrzyzowania()[i]->getZnaki().size(); j++)
+		{
+			for (int k = 0; k < mapa->getSkrzyzowania()[i]->getZnaki()[j].size(); k++)
+			{					
+				sinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getSinus();
+				cosinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getCosinus();
+
+				if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk1() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
+				{
+					x = mapa->getSkrzyzowania()[i]->getX() + cosinus * (50 + k * 15) + sinus * 20;
+					y = mapa->getSkrzyzowania()[i]->getY() + sinus * (50 + k * 15) - cosinus * 20;
+					kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat();
+				}
+				else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk2() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
+				{
+					x = mapa->getSkrzyzowania()[i]->getX() - cosinus * (50 + k * 15) - sinus * 20;
+					y = mapa->getSkrzyzowania()[i]->getY() - sinus * (50 + k * 15) + cosinus * 20;
+					kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat() + 180;
+				}
+				Z = new CZnakGrafika(x,y, kat, mapa->getSkrzyzowania()[i]->getZnaki()[j][k]->getTyp());
+				grZnaki.push_back(Z);
+					
+				if (mapa->getSkrzyzowania()[i]->getZnaki()[j][k]->getTyp() == 'R')
+				{
+					czyRondo = true;
+				}
+			}
+		}
+
+		for (int j = 0; j < mapa->getSkrzyzowania()[i]->getSwiatla().size(); j++)
+		{
+			sinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getSinus();
+			cosinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getCosinus();
+			if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk1() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
+			{
+				x = mapa->getSkrzyzowania()[i]->getX() + cosinus * (50) + sinus * 20;
+				y = mapa->getSkrzyzowania()[i]->getY() + sinus * (50) - cosinus * 20;
+				kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat();
+				Sw = new CSwiatlaGrafika(x, y, kat, mapa->getSkrzyzowania()[i]->getSwiatla()[j]->getKolor(), -sinus, -cosinus);
+			}
+			else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk2() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
+			{
+				x = mapa->getSkrzyzowania()[i]->getX() - cosinus * (50) - sinus * 20;
+				y = mapa->getSkrzyzowania()[i]->getY() - sinus * (50) + cosinus * 20;
+				kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat() + 180;
+				Sw = new CSwiatlaGrafika(x, y, kat, mapa->getSkrzyzowania()[i]->getSwiatla()[j]->getKolor(), sinus, cosinus);
+			}
+			
+			grSwiatla.push_back(Sw);
+			
+			mapa->getSkrzyzowania()[i]->getSwiatla()[j]->attach(grSwiatla[j]);
+		}
+		S = new CSkrzyzowanieGrafika(mapa->getSkrzyzowania()[i]->getX(), mapa->getSkrzyzowania()[i]->getY(), czyRondo);
+		grSkrzyzowania.push_back(S);
+	}
+	for (int i = 0; i < mapa->getDrogi().size(); i++)
+	{
+		x = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk1()]->getX();
+		y = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk1()]->getY();
+		dl = mapa->getDrogi()[i]->getDlugosc();
+		kat = mapa->getDrogi()[i]->getKat();
+		D = new CDrogaGrafika(x,y,dl,kat);
+		grDrogi.push_back(D);
+	}
 }
 
 
 void CGrafika::rysuj()
 {
-	rysujDrogi();
-}
-
-void CGrafika::rysujDrogi()
-{
-	/*sf::RectangleShape tlo;
-	tlo.setFillColor(sf::Color(0, 30, 0, 255));
-	tlo.setSize(sf::Vector2f(1500, 800));
-	window->draw(tlo);
-	*/
-	int typ;
-
-	vector <CSkrzyzowanie*> skrzyzowania = mapa->getSkrzyzowania();
-	vector <CDroga*> drogi = mapa->getDrogi();
-	sf::RectangleShape linia;
-	linia.setFillColor(sf::Color(50, 50, 50, 255));
-
-	for (int i = 0; i < drogi.size(); i++)
+	for (int i = 0; i < grDrogi.size(); i++)
 	{
-		linia.setSize(sf::Vector2f(drogi[i]->getDlugosc(), drogi[i]->getSzerokosc()));
-		linia.setOrigin(sf::Vector2f(0, drogi[i]->getSzerokosc()/2));
-		linia.setPosition(sf::Vector2f(skrzyzowania[drogi[i]->getIdSk1()]->getX(), skrzyzowania[drogi[i]->getIdSk1()]->getY() ));
-		linia.setRotation(drogi[i]->getKat());
-		window->draw(linia);
+		grDrogi[i]->rysuj(window);
 	}
-	
-	sf::CircleShape kolo1;
-	kolo1.setFillColor(sf::Color(50, 50, 50, 255));
-	kolo1.setRadius(drogi[0]->getSzerokosc()*0.5);
-	kolo1.setOrigin(sf::Vector2f(drogi[0]->getSzerokosc() * 0.5, drogi[0]->getSzerokosc() * 0.5));
-
-	sf::CircleShape kolo2;
-	kolo2.setFillColor(sf::Color(50, 50, 50, 255));
-	kolo2.setRadius(drogi[0]->getSzerokosc()*1.5);
-	kolo2.setOrigin(sf::Vector2f(drogi[0]->getSzerokosc() * 1.5, drogi[0]->getSzerokosc() * 1.5));
-
-	for (int i = 0; i < skrzyzowania.size(); i++)
+	for (int i = 0; i < grSkrzyzowania.size(); i++)
 	{
-		typ = skrzyzowania[i]->getTyp();
-		
-		if (typ == 1)
-		{
-			kolo2.setPosition(sf::Vector2f(skrzyzowania[i]->getX(), skrzyzowania[i]->getY()));
-			
-			kolo1.setPosition(sf::Vector2f(skrzyzowania[i]->getX(), skrzyzowania[i]->getY()));
-			kolo1.setFillColor(sf::Color(0, 0, 0, 255));
-			window->draw(kolo2);
-			window->draw(kolo1);
-			kolo1.setFillColor(sf::Color(50, 50, 50, 255));
-		}
-		else if (typ == 2)
-		{
-			kolo1.setPosition(sf::Vector2f(skrzyzowania[i]->getX(), skrzyzowania[i]->getY()));
-			kolo1.setRadius(drogi[0]->getSzerokosc() * 0.5);
-			window->draw(kolo1);
-		}
-		else if (typ == 3)
-		{
-			kolo1.setPosition(sf::Vector2f(skrzyzowania[i]->getX(), skrzyzowania[i]->getY()));
-			kolo1.setRadius(drogi[0]->getSzerokosc() * 0.5);
-			window->draw(kolo1);
-		}
-		else if (typ == 4)
-		{
-			kolo1.setPosition(sf::Vector2f(skrzyzowania[i]->getX(), skrzyzowania[i]->getY()));
-			kolo1.setRadius(drogi[0]->getSzerokosc() * 0.5);
-			window->draw(kolo1);
-		}
-			sf::CircleShape znak;
-			znak.setFillColor(sf::Color(0, 255, 0, 255));
-			znak.setRadius(5);
-			znak.setOrigin(sf::Vector2f(5,5));
-
-			sf::RectangleShape pierw;
-			pierw.setFillColor(sf::Color(255, 255, 10, 255));
-			pierw.setSize(sf::Vector2f(10,10));
-			pierw.setOrigin(sf::Vector2f(5, 5));
-
-			sf::CircleShape podp(7, 3);
-			podp.setOrigin(sf::Vector2f(7, 7));
-			podp.setFillColor(sf::Color(255, 150, 0, 255));
-
-			for (int j = 0; j < skrzyzowania[i]->getIdDrogi().size(); j++)
-			{
-				if (drogi[skrzyzowania[i]->getIdDrogi()[j]]->getIdSk1() == skrzyzowania[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
-				{
-					podp.setPosition(sf::Vector2f(skrzyzowania[i]->getX() + drogi[skrzyzowania[i]->getIdDrogi()[j]]->getCosinus() * 50.0 + drogi[skrzyzowania[i]->getIdDrogi()[j]]->getSinus() * 20.0, skrzyzowania[i]->getY() + drogi[skrzyzowania[i]->getIdDrogi()[j]]->getSinus() * 50.0 - drogi[skrzyzowania[i]->getIdDrogi()[j]]->getCosinus() * 20));
-					podp.setRotation(drogi[skrzyzowania[i]->getIdDrogi()[j]]->getKat() + 90);
-				}
-				else if (drogi[skrzyzowania[i]->getIdDrogi()[j]]->getIdSk2() == skrzyzowania[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
-				{
-					podp.setPosition(sf::Vector2f(skrzyzowania[i]->getX() - drogi[skrzyzowania[i]->getIdDrogi()[j]]->getCosinus() * 50.0 - drogi[skrzyzowania[i]->getIdDrogi()[j]]->getSinus() * 20.0, skrzyzowania[i]->getY() - drogi[skrzyzowania[i]->getIdDrogi()[j]]->getSinus() * 50.0 + drogi[skrzyzowania[i]->getIdDrogi()[j]]->getCosinus() * 20)) ;
-					podp.setRotation(drogi[skrzyzowania[i]->getIdDrogi()[j]]->getKat() + 270);
-				}
-				//pierw.setRotation(drogi[skrzyzowania[i]->getIdDrogi()[j]]->getKat() + 45);
-				window->draw(podp);
-			}
-
+		grSkrzyzowania[i]->rysuj(window);
+	}
+	for (int i = 0; i < grZnaki.size(); i++)
+	{
+		grZnaki[i]->rysuj(window);
+	}
+	for (int i = 0; i < grSwiatla.size(); i++)
+	{
+		grSwiatla[i]->rysuj(window);
 	}
 }
 
-void CGrafika::rysujSkrzyzowania()
-{
 
-}

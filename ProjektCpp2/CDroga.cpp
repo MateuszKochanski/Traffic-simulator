@@ -12,13 +12,13 @@ CDroga::CDroga(int id, int s1, int s2, int dl, double s, double c)
 	cosinus = c;
 
 	if (sinus >= 0 && cosinus >= 0)
-		kat = asinf(sinus) * (180.0 / 3.14);
+		kat = asin(sinus) * (180.0 / 3.14);
 	else if (sinus >= 0 && cosinus < 0)
-		kat = 180.0 - asinf(sinus) * (180.0 / 3.14);
+		kat = 180.0 - asin(sinus) * (180.0 / 3.14);
 	else if (sinus < 0 && cosinus >= 0)
-		kat = 360 + asinf(sinus) * (180.0 / 3.14);
+		kat = 360 + asin(sinus) * (180.0 / 3.14);
 	else
-		kat = 180.0 - asinf(sinus) * (180.0 / 3.14);
+		kat = 180.0 - asin(sinus) * (180.0 / 3.14);
 }
 
 int CDroga::getID()

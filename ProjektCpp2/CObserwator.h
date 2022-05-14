@@ -1,6 +1,7 @@
 #pragma once
 class CObserwator
 {
-	virtual void update() = 0;
+public:
+	virtual void update( int arg) = 0;
 };
 

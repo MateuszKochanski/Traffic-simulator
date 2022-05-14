@@ -24,3 +24,15 @@ int CPojazd::getOdleglosc()
 {
 	return odleglosc;
 }
+
+void CPojazd::attach(CObserwator*)
+{
+}
+
+void CPojazd::detach(CObserwator*)
+{
+}
+
+void CPojazd::notify()
+{
+}
