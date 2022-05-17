@@ -8,13 +8,12 @@ class CSwiatla : public CObserwowana
 private:
 	int kolor;
 	int idDrogi;
-	double czasZielone;
-	double czasCzerwone;
+	int czasZielone;
+	int czasCzerwone;
 	int seq;
-	double zegar;
-	int licznik;
+	int zegar;
+	int stan;
 	vector <CObserwator*> obserwatorzy;
-	
 
 public:
 	CSwiatla(int sq=0, int czZ=0, int czCZ=0);

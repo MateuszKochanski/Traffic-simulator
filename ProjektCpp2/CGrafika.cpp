@@ -34,13 +34,13 @@ void CGrafika::update(int arg)
 				sinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getSinus();
 				cosinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getCosinus();
 
-				if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk1() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
+				if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk(0) == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
 				{
 					x = mapa->getSkrzyzowania()[i]->getX() + cosinus * (50 + k * 15) + sinus * 20;
 					y = mapa->getSkrzyzowania()[i]->getY() + sinus * (50 + k * 15) - cosinus * 20;
 					kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat();
 				}
-				else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk2() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
+				else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk(1) == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
 				{
 					x = mapa->getSkrzyzowania()[i]->getX() - cosinus * (50 + k * 15) - sinus * 20;
 					y = mapa->getSkrzyzowania()[i]->getY() - sinus * (50 + k * 15) + cosinus * 20;
@@ -60,14 +60,14 @@ void CGrafika::update(int arg)
 		{
 			sinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getSinus();
 			cosinus = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getCosinus();
-			if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk1() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
+			if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk(0) == mapa->getSkrzyzowania()[i]->getID())//jeœli to 1 skrzyzowanie danej drogi
 			{
 				x = mapa->getSkrzyzowania()[i]->getX() + cosinus * (50) + sinus * 20;
 				y = mapa->getSkrzyzowania()[i]->getY() + sinus * (50) - cosinus * 20;
 				kat = mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getKat();
 				Sw = new CSwiatlaGrafika(x, y, kat, mapa->getSkrzyzowania()[i]->getSwiatla()[j]->getKolor(), -sinus, -cosinus);
 			}
-			else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk2() == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
+			else if (mapa->getDrogi()[mapa->getSkrzyzowania()[i]->getIdDrogi()[j]]->getIdSk(1) == mapa->getSkrzyzowania()[i]->getID())//jeœli to 2 skrzyzowanie danej drogi
 			{
 				x = mapa->getSkrzyzowania()[i]->getX() - cosinus * (50) - sinus * 20;
 				y = mapa->getSkrzyzowania()[i]->getY() - sinus * (50) + cosinus * 20;
@@ -77,15 +77,15 @@ void CGrafika::update(int arg)
 			
 			grSwiatla.push_back(Sw);
 			
-			mapa->getSkrzyzowania()[i]->getSwiatla()[j]->attach(grSwiatla[j]);
+			mapa->getSkrzyzowania()[i]->getSwiatla()[j]->attach(grSwiatla[this->grSwiatla.size() - 1]);
 		}
 		S = new CSkrzyzowanieGrafika(mapa->getSkrzyzowania()[i]->getX(), mapa->getSkrzyzowania()[i]->getY(), czyRondo);
 		grSkrzyzowania.push_back(S);
 	}
 	for (int i = 0; i < mapa->getDrogi().size(); i++)
 	{
-		x = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk1()]->getX();
-		y = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk1()]->getY();
+		x = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk(0)]->getX();
+		y = mapa->getSkrzyzowania()[mapa->getDrogi()[i]->getIdSk(0)]->getY();
 		dl = mapa->getDrogi()[i]->getDlugosc();
 		kat = mapa->getDrogi()[i]->getKat();
 		D = new CDrogaGrafika(x,y,dl,kat);
@@ -93,6 +93,11 @@ void CGrafika::update(int arg)
 	}
 }
 
+
+CMapa* CGrafika::getMapa()
+{
+	return mapa;
+}
 
 void CGrafika::rysuj()
 {
@@ -112,6 +117,17 @@ void CGrafika::rysuj()
 	{
 		grSwiatla[i]->rysuj(window);
 	}
+	for (int i = 0; i < grPojazdy.size(); i++)
+	{
+		grPojazdy[i]->rysuj(window);
+	}
+}
+
+void CGrafika::dodajGrPojazdu(CPojazd* pojazd)
+{
+	CPojazdGrafika* PJG = new CPojazdGrafika(pojazd);
+	grPojazdy.push_back(PJG);
+	pojazd->attach(grPojazdy[grPojazdy.size() - 1]);
 }
 
 

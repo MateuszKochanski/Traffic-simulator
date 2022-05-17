@@ -1,4 +1,5 @@
 #include "CSwiatla.h"
+#include <iostream>
 
 CSwiatla::CSwiatla(int sq, int czZ, int czCZ)
 {
@@ -8,52 +9,49 @@ CSwiatla::CSwiatla(int sq, int czZ, int czCZ)
 	zegar = 0;
 }
 
-
-
 void CSwiatla::odswierz(double czestotliwosc)
 {
+	float zwZegara = (1.0 / czestotliwosc) * 100;
+	zegar += zwZegara;
+	int hStan = stan;
+	
+	if (stan == 0 && zegar >= (czasZielone - 1) * 100)
+	{
+		stan = 1;
+		zegar = 0;
+	}
+	else if (stan == 1 && zegar >= 50)
+	{
+		stan = 2;
+		zegar = 0;
+	}
+	else if (stan == 2 && zegar >= czasCzerwone * 100)
+	{
+		stan = 3;
+		zegar = 0;
+	}
+	else if (stan == 3 && zegar >= 50)
+	{
+		stan = 0;
+		zegar = 0;
+	}
 
-	zegar += (1 / czestotliwosc);
-	int help = licznik;
-
-	if (licznik == 0 && zegar >= czasZielone - 1)
+	if (hStan!= stan)
 	{
-		licznik = 1;
-		zegar = 0;
-	}
-	else if (licznik == 1 && zegar >= 0.5)
-	{
-		licznik = 2;
-		zegar = 0;
-	}
-	else if (licznik == 2 && zegar >= czasCzerwone)
-	{
-		licznik = 3;
-		zegar = 0;
-	}
-	else if (licznik == 3 && zegar >= 0.5)
-	{
-		licznik = 0;
-		zegar = 0;
-	}
-
-	if (help != licznik)
-	{
-		if (licznik == 0)
+		if (stan == 0)
 		{
-			kolor = 1;
+			kolor = 1;//zielony
 		}
-		else if (licznik == 1 || licznik == 3)
+		else if (stan == 1 || stan == 3)
 		{
-			kolor = 2;
+			kolor = 2;//¿ólty
 		}
-		else if (licznik == 2 )
+		else if (stan == 2 )
 		{
-			kolor = 3;
+			kolor = 3;//czerwony
 		}
 		notify();
 	}
-
 }
 
 int CSwiatla::getKolor()
@@ -72,12 +70,12 @@ void CSwiatla::setParametry(int sq, int czZ)
 	if (sq == 1)
 	{
 		kolor = 2;
-		licznik = 3;
+		stan = 3;
 	}
 	else
 	{
 		kolor = 3;
-		licznik = 2;
+		stan = 2;
 	}
 	seq = sq;
 	czasZielone = czZ;

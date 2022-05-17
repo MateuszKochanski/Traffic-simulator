@@ -19,7 +19,7 @@ void CWczytywaczMapy::setMapa(CMapa* mapa, string sciezka)
 
 void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 {
-	ifstream plik("mapa2.txt");
+	ifstream plik("mapa3.txt");
 
 	string line;
 	string liczba;

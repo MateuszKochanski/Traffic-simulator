@@ -14,6 +14,10 @@ void CMapa::odswierz(double czestotliwosc)
 			skrzyzowania[i]->getSwiatla()[j]->odswierz(czestotliwosc);
 		}
 	}
+	for (int i = 0; i < pojazdy.size(); i++)
+	{
+		pojazdy[i]->odswierz(drogi, skrzyzowania, pojazdy, czestotliwosc);
+	}
 }
 
 vector <CDroga*> CMapa::getDrogi()
@@ -24,6 +28,11 @@ vector <CDroga*> CMapa::getDrogi()
 vector <CSkrzyzowanie*> CMapa::getSkrzyzowania()
 {
 	return skrzyzowania;
+}
+
+vector<CPojazd*> CMapa::getPojazdy()
+{
+	return pojazdy;
 }
 
 void CMapa::dodajSkrzyzowanie(int id, int x, int y)
@@ -47,6 +56,12 @@ void CMapa::dodajDrDoSkrzyzowania(int idSkrzyzownia, int idDrogi, vector <CZnak*
 void CMapa::dodajSwiatla(int idSkrzyzowania, vector<int> drogi, int czas)
 {
 	skrzyzowania[idSkrzyzowania]->dodajSwiatla(drogi, czas);
+}
+
+void CMapa::dodajPojazd(CDroga* d, int odl, int kier)
+{
+	CPojazd* p = new CPojazd(pojazdy.size(), skrzyzowania, d, odl, kier);
+	pojazdy.push_back(p);
 }
 
 void CMapa::attach(CObserwator* obs)

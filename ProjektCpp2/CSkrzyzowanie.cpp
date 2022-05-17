@@ -43,7 +43,6 @@ vector<vector<CZnak*>> CSkrzyzowanie::getZnaki()
 	return znaki;
 }
 
-
 vector<CSwiatla*> CSkrzyzowanie::getSwiatla()
 {
 	return swiatla;
@@ -55,6 +54,7 @@ void CSkrzyzowanie::dodajDroge(int idDrogi, vector <CZnak*> zn)
 	id_drogi.push_back(idDrogi);
 	znaki.push_back(zn);
 }
+
 
 void CSkrzyzowanie::dodajSwiatla(vector<int> drogi, int czas)
 {

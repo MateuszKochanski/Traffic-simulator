@@ -3,17 +3,23 @@
 #include "CMapa.h"
 #include "CGrafika.h"
 #include "CWczytywaczMapy.h"
+#include "CSymulacja.h"
+#include "CZarzadzanieGrafika.h"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1500, 800), "Symulator ruchu drogowego",sf::Style::Close, sf::ContextSettings(24, 8, 4));
-    window.setFramerateLimit(50);
+    //window.setFramerateLimit(100);
     
 
     CMapa mapa;
     CGrafika grafika(&window,&mapa);
     mapa.attach(&grafika); 
     CWczytywaczMapy wczytywacz(&mapa, "mapa.txt");
+    CZarzadzanieGrafika zarzadzaczGrafika(&grafika);
+
+    CSymulacja symulacja(&mapa, 100, &zarzadzaczGrafika);
+    
 
     while (window.isOpen())
     {
@@ -23,10 +29,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        symulacja.uruchom();
         window.clear();
-        mapa.odswierz(50);
         grafika.rysuj();
         window.display();
+
     }
  
     return 0;

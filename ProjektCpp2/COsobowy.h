@@ -4,7 +4,7 @@ class COsobowy :
     public CPojazd
 {
 private:
-    int ID;
+    
 public:
 
 };
