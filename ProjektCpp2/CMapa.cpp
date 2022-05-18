@@ -42,7 +42,7 @@ void CMapa::dodajSkrzyzowanie(int id, int x, int y)
 	skrzyzowania.push_back(S);
 }
 
-void CMapa::dodajDroge(int id, int ns1, int ns2, int dl, double sinus, double cosinus)
+void CMapa::dodajDroge(int id, int ns1, int ns2, double dl, double sinus, double cosinus)
 {
 	CDroga* D = new CDroga(id, ns1, ns2, dl, sinus, cosinus);
 	drogi.push_back(D);
@@ -58,7 +58,7 @@ void CMapa::dodajSwiatla(int idSkrzyzowania, vector<int> drogi, int czas)
 	skrzyzowania[idSkrzyzowania]->dodajSwiatla(drogi, czas);
 }
 
-void CMapa::dodajPojazd(CDroga* d, int odl, int kier)
+void CMapa::dodajPojazd(CDroga* d, double odl, int kier)
 {
 	CPojazd* p = new CPojazd(pojazdy.size(), skrzyzowania, d, odl, kier);
 	pojazdy.push_back(p);

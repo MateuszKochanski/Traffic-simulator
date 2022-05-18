@@ -33,7 +33,7 @@ void CZarzadzaniePojazdami::dodajPojazd()
 	{
 		ok = true;
 		a = rand() % mapa->getDrogi().size();
-		b = rand() % (mapa->getDrogi()[a]->getDlugosc() - 60) + 30;
+		b = rand() % (int(mapa->getDrogi()[a]->getDlugosc()) - 60) + 30;
 		k = rand() % 2;
 
 		for (int i = 0; i < mapa->getDrogi()[a]->getPojazdy(k).size(); i++)

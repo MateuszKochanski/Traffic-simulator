@@ -8,7 +8,7 @@ CPojazd::CPojazd(int id, vector <CSkrzyzowanie*> skrzyzowania, CDroga* droga, in
 	idDrogi = droga->getID();
 	droga->dodajPojazd(ID, kierunek);
 
-	predkosc = 30;
+	predkosc = 50;
 
 	if (kierunek == 0)
 	{
@@ -22,8 +22,12 @@ CPojazd::CPojazd(int id, vector <CSkrzyzowanie*> skrzyzowania, CDroga* droga, in
 		y = skrzyzowania[droga->getIdSk(kierunek)]->getY() - droga->getSinus() * odleglosc - droga->getCosinus() * 5.0;
 		kat = droga->getKat() + 180.0;
 	}
-
+	trybSkretu = false;
+	czyGotowyDoSkretu = false;
 	jestNastDroga = false;
+	promien = 10;
+	odlSkretu = 0;
+	wlasnieZmienionoDroge = false;
 }
 
 int CPojazd::getID()
@@ -187,21 +191,84 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 
 			
 		}
-	
-		if(czyMogeJechac)
-			odleglosc += predkosc / czestotliwosc;
-
-
-		if (kierunek == 0)
+		
+		if (czyMogeJechac)
 		{
-			x = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getX() + drogi[idDrogi]->getCosinus() * odleglosc - drogi[idDrogi]->getSinus() * 5.0;
-			y = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getY() + drogi[idDrogi]->getSinus() * odleglosc + drogi[idDrogi]->getCosinus() * 5.0;
+			odleglosc += predkosc / czestotliwosc;
+			if (trybSkretu)
+			{
+				odlSkretu += predkosc / czestotliwosc;
+			}
+		}
+
+		if (!czyGotowyDoSkretu)
+		{
+			katPoczatkowy = kat;
+			int i = 0;
+			while (kolejnoscDrog[i] != idNastDrogi)
+			{
+				i++;
+			}
+			katNastDrogi = katy[i];
+
+			if (katNastDrogi > 180)
+			{
+				kierunekSkretu = 1;
+				odlegloscRozpoczeciaSkretu = promien / tan(((360.0 - double(katNastDrogi)) * (3.14 / 180.0)) / 2.0);
+			}
+			else
+			{
+				kierunekSkretu = 0;
+				odlegloscRozpoczeciaSkretu = (promien + 10.0) / tan((double(katNastDrogi) / 2.0) * (3.14 / 180.0));
+			}
+			cout << "//////////" << katNastDrogi  << "  " << odlegloscRozpoczeciaSkretu << endl;
+			odlSkretu = 0;
+			czyGotowyDoSkretu = 1;
+		}
+
+		if (odleglosc > drogi[idDrogi]->getDlugosc() - odlegloscRozpoczeciaSkretu  &&  czyGotowyDoSkretu || wlasnieZmienionoDroge)
+		{
+			trybSkretu = true;
+		}	
+
+
+		
+		if (odlSkretu > 2.0 * odlegloscRozpoczeciaSkretu)
+		{
+			trybSkretu = false;
+			czyGotowyDoSkretu = false;
+			if (kierunek == 0)
+			{
+				kat = drogi[idDrogi]->getKat();
+			}
+			else
+			{
+				kat = drogi[idDrogi]->getKat() + 180.0;
+			}
+		}
+
+
+
+		if (trybSkretu)
+		{
+			kat = katPoczatkowy - ((180.0 - katNastDrogi) * odlSkretu) / (2.0 * odlegloscRozpoczeciaSkretu);
+			cout << "aaaaa" << odlSkretu << endl;
+			
 		}
 		else
 		{
-			x = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getX() - drogi[idDrogi]->getCosinus() * odleglosc + drogi[idDrogi]->getSinus() * 5.0;
-			y = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getY() - drogi[idDrogi]->getSinus() * odleglosc - drogi[idDrogi]->getCosinus() * 5.0;
+			if (kierunek == 0)
+			{
+				x = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getX() + drogi[idDrogi]->getCosinus() * odleglosc - drogi[idDrogi]->getSinus() * 5.0;
+				y = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getY() + drogi[idDrogi]->getSinus() * odleglosc + drogi[idDrogi]->getCosinus() * 5.0;
+			}
+			else
+			{
+				x = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getX() - drogi[idDrogi]->getCosinus() * odleglosc + drogi[idDrogi]->getSinus() * 5.0;
+				y = skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getY() - drogi[idDrogi]->getSinus() * odleglosc - drogi[idDrogi]->getCosinus() * 5.0;
+			}
 		}
+		wlasnieZmienionoDroge = false;
 	}
 	else
 	{
@@ -219,7 +286,6 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 
 			idDrogi = idNastDrogi;
 
-
 			if (kierunek == 0)
 			{
 				kat = drogi[idDrogi]->getKat();
@@ -228,22 +294,31 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 			{
 				kat = drogi[idDrogi]->getKat() + 180.0;
 			}
-
 			drogi[idDrogi]->dodajPojazd(ID, kierunek);
 		}
 		jestNastDroga = false;
-		
+		wlasnieZmienionoDroge = true;
 	}
 
 	notify();
 }
 
+double CPojazd::getPromien()
+{
+	return promien;
+}
+
+bool CPojazd::getKierunekSkretu()
+{
+	return kierunekSkretu;
+}
+
 void CPojazd::odswierzKolejnoscDrog(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowania)
 {
 	delete[] kolejnoscDrog;
-
+	delete[] katy;
 	kolejnoscDrog = new int[skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size()];
-	int* katy = new int[skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size()];
+	katy = new int[skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size()];
 
 	int hKat;
 	for (int i = 0; i < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); i++)
@@ -267,9 +342,10 @@ void CPojazd::odswierzKolejnoscDrog(vector<CDroga*> drogi, vector<CSkrzyzowanie*
 			}
 		}
 	}
+	cout << "--------------"<< endl;
 	for (int j = 0; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)///wyswietlenie
 	{
-		cout << kolejnoscDrog[j] << endl;
+		cout << kolejnoscDrog[j]<<"  "<<katy[j] << endl;
 	}
 }
 
@@ -287,6 +363,13 @@ void CPojazd::notify()
 {
 	for (int i = 0; i < obserwatorzy.size(); i++)
 	{
-		obserwatorzy[i]->update(0);
+		if (trybSkretu)
+		{
+			obserwatorzy[i]->update(1);
+		}
+		else
+		{
+			obserwatorzy[i]->update(0);
+		}	
 	}
 }

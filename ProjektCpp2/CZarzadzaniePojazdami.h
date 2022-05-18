@@ -11,7 +11,7 @@ class CZarzadzaniePojazdami : public CObserwowana
 	void utworzPojazdy();
 	vector <CObserwator*> obserwatorzy;
 public:
-	CZarzadzaniePojazdami(CMapa *m, int ile = 25);
+	CZarzadzaniePojazdami(CMapa *m, int ile = 1);
 	void odswierz();
 	void attach(CObserwator*);
 	void detach(CObserwator*);

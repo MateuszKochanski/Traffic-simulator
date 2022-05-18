@@ -23,10 +23,12 @@ void CPojazdGrafika::update(int arg)
 	{
 		if (!trybSkretu) 
 		{
-			liczSrodekObrotu(1);
 			trybSkretu = true;
+			promien = pojazd->getPromien();
+			kierunekSkretu = pojazd->getKierunekSkretu();
+			liczSrodekObrotu(kierunekSkretu);
 		}
-		kat = pojazd->getKat();
+		kat = pojazd->getKat();	
 	}
 
 }
@@ -35,13 +37,13 @@ void CPojazdGrafika::liczSrodekObrotu(bool kierunek)//kierunek==1 to prawa, kier
 {
 	if (kierunek)
 	{
-		sx = x - sin(kat) * promien;
-		sy = y + cos(kat) * promien;
+		sx = x - sin(kat * (3.14 / 180.0)) * promien;
+		sy = y + cos(kat * (3.14 / 180.0)) * promien;
 	}
 	else
 	{
-		sx = x + sin(kat) * (promien + 10);
-		sy = y - cos(kat) * (promien + 10);
+		sx = x + sin(kat * (3.14 / 180.0)) * (promien + 10);
+		sy = y - cos(kat * (3.14 / 180.0)) * (promien + 10);
 	}
 }
 
@@ -53,6 +55,7 @@ void CPojazdGrafika::rysuj(sf::RenderWindow* window)
 	if (!trybSkretu)
 	{
 		prostokat.setOrigin(sf::Vector2f(7.5, 3.5));
+		prostokat.setPosition(sf::Vector2f(x, y));
 	}
 	else
 	{
@@ -64,8 +67,8 @@ void CPojazdGrafika::rysuj(sf::RenderWindow* window)
 		{
 			prostokat.setOrigin(sf::Vector2f(7.5, 3.5 - (promien + 10)));
 		}
+		prostokat.setPosition(sf::Vector2f(sx, sy));
 	}
-	prostokat.setPosition(sf::Vector2f(x, y));
 	prostokat.setRotation(kat);
 	window->draw(prostokat);
 }

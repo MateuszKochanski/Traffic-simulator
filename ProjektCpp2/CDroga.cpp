@@ -2,7 +2,7 @@
 #include <cmath>
 #include "iostream"
 
-CDroga::CDroga(int id, int s1, int s2, int dl, double s, double c)
+CDroga::CDroga(int id, int s1, int s2, double dl, double s, double c)
 {
 	ID = id;
 	id_Sk[0] = s1;
@@ -26,13 +26,13 @@ int CDroga::getID()
 {
 	return ID;
 }
-int CDroga::getDlugosc()
+double CDroga::getDlugosc()
 {
 	return dlugosc;
 }
 
 
-float CDroga::getKat()
+double CDroga::getKat()
 {
 	return kat;
 }

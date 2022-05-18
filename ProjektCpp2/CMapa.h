@@ -26,10 +26,10 @@ public:
 	vector <CSkrzyzowanie*> getSkrzyzowania();
 	vector <CPojazd*> getPojazdy();
 	void dodajSkrzyzowanie(int id, int x, int y);
-	void dodajDroge(int id, int ns1, int ns2, int dl, double sinus, double cosinus);
+	void dodajDroge(int id, int ns1, int ns2, double dl, double sinus, double cosinus);
 	void dodajDrDoSkrzyzowania(int idSkrzyzownia, int idDrogi, vector <CZnak*> zn);
 	void dodajSwiatla(int idSkrzyzowania, vector <int> drogi, int czas);
-	void dodajPojazd(CDroga*d, int odl, int kier);
+	void dodajPojazd(CDroga*d, double odl, int kier);
 	void attach(CObserwator*);
 	void detach(CObserwator*);
 	void notify();
