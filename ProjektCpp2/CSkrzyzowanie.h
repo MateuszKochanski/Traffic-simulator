@@ -16,6 +16,7 @@ protected:
 	vector <CSwiatla*> swiatla;
 	int sekwencjeSwiatel; 
 	int typ;
+	int bufor;
 public:
 	CSkrzyzowanie();
 	int getID();
@@ -28,5 +29,7 @@ public:
 	vector <CSwiatla*> getSwiatla();
 	void dodajDroge(int idDrogi, vector <CZnak*> zn);
 	void dodajSwiatla(vector <int> drogi, int czas);
+	void setBufor(int id);
+	int getBufor();
 };
 

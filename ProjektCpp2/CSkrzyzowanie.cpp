@@ -3,6 +3,7 @@
 CSkrzyzowanie::CSkrzyzowanie()
 {
 	sekwencjeSwiatel = 0;
+	bufor = 0;
 }
 
 int CSkrzyzowanie::getID()
@@ -53,6 +54,16 @@ void CSkrzyzowanie::dodajDroge(int idDrogi, vector <CZnak*> zn)
 {
 	id_drogi.push_back(idDrogi);
 	znaki.push_back(zn);
+}
+
+int CSkrzyzowanie::getBufor()
+{
+	return bufor;
+}
+
+void CSkrzyzowanie::setBufor(int id)
+{
+	bufor = id;
 }
 
 

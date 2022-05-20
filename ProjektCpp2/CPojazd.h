@@ -22,6 +22,9 @@ private:
 	double predkosc;
 	bool jestNastDroga;//czy wylosowano nastêpn¹ drogê
 
+
+	double sx;
+	double sy;
 	int* kolejnoscDrog;	
 	double* katy;//posortowane k¹ty wszystkich drog
 	bool trybSkretu;//czy skrêca czy nie skrêca
@@ -34,6 +37,12 @@ private:
 	double katPoczatkowy;
 	bool wlasnieZmienionoDroge;
 
+	int cierpliwosc;
+	bool czyWlasnieUstal;
+
+	double licznikCzekania;
+	bool boPojazdyNaSkrzyzowaniu;
+	bool czyMogeJechac;
 
 	void odswierzKolejnoscDrog(vector <CDroga*> drogi, vector <CSkrzyzowanie*> skrzyzowania);
 public:
@@ -48,6 +57,10 @@ public:
 	void odswierz(vector <CDroga*> drogi, vector <CSkrzyzowanie*> skrzyzowania, vector<CPojazd*> pojazdy, double czestotliwosc);
 	double getPromien();
 	bool getKierunekSkretu();
+	double getSx();
+	double getSy();
+	bool czyStoi();
+	double getKatNastDrogi();
 
 	void attach(CObserwator*);
 	void detach(CObserwator*);

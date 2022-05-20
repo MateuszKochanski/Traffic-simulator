@@ -140,9 +140,9 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				s1 = mapa->getSkrzyzowania()[ns1];
 				s2 = mapa->getSkrzyzowania()[ns2];
 
-				dl = sqrt((s1->getX() - s2->getX()) * (s1->getX() - s2->getX()) + (s1->getY() - s2->getY()) * (s1->getY() - s2->getY()));
-				sinus = (s2->getY() - s1->getY()) / dl;
-				cosinus = (s2->getX() - s1->getX()) / dl;
+				dl = sqrt((double(s1->getX() - s2->getX())) * (double(s1->getX() - s2->getX())) + (double(s1->getY() - s2->getY())) * (double(s1->getY() - s2->getY())));
+				sinus = double(s2->getY() - s1->getY()) / dl;
+				cosinus = double((s2->getX() - s1->getX())) / dl;
 				mapa->dodajDroge(licznikD, ns1, ns2, dl, sinus, cosinus);
 				mapa->dodajDrDoSkrzyzowania(ns1, licznikD, znakiS1);
 				mapa->dodajDrDoSkrzyzowania(ns2, licznikD, znakiS2);
