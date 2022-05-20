@@ -212,7 +212,7 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 										{
 											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)//je¿eli na danej drodze jest pojazd bli¿ej ni¿ 40 jednostek
 											{			
-												if (j + 1 <= skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
+												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
 												{
 													if (idDrogi != kolejnoscDrog[j + 1])
 													{
@@ -278,7 +278,7 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 
 									for (int k = 0; k < drogi[kolejnoscDrog[i]]->getPojazdy(1).size(); k++)
 									{
-										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
+										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(1)[k]]->getOdleglosc() < 60)
 										{
 											czyMogeJechac = false;
 										}
@@ -288,7 +288,7 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 								{
 									for (int k = 0; k < drogi[kolejnoscDrog[i]]->getPojazdy(0).size(); k++)
 									{
-										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
+										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(0)[k]]->getOdleglosc() < 60)
 										{
 
 											czyMogeJechac = false;
@@ -322,7 +322,19 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 										{
 											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
 											{
-												czyMogeJechac = false;
+												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
+												{
+													if (idDrogi != kolejnoscDrog[j + 1])
+													{
+														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getKatNastDrogi() > 140)
+														{
+															czyMogeJechac = false;
+														}
+													}
+												}
+												else
+													czyMogeJechac = false;
+
 											}
 										}
 									}
@@ -332,7 +344,18 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 										{
 											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
 											{
-												czyMogeJechac = false;
+												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
+												{
+													if (idDrogi != kolejnoscDrog[j + 1])
+													{
+														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getKatNastDrogi() > 140)
+														{
+															czyMogeJechac = false;
+														}
+													}
+												}
+												else
+													czyMogeJechac = false;
 											}
 										}
 									}
@@ -534,6 +557,7 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 		}
 		if (wlasnieZmienionoDroge && katNastDrogi > 178 && katNastDrogi < 182)
 		{
+			trybSkretu = false;
 			czyGotowyDoSkretu = false;
 		}
 
