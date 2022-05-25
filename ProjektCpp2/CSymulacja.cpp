@@ -1,5 +1,9 @@
 #include "CSymulacja.h"
 
+/// @file CSymulacja.cpp
+/// @brief Plik Ÿród³owy klasy CSymulacja
+
+/// @brief Konstruktor klasy CSymulacja
 CSymulacja::CSymulacja()
 {
     zarzadaniePojazdami = nullptr;
@@ -10,10 +14,15 @@ CSymulacja::CSymulacja()
     elapsed = 0;
 }
 
-CSymulacja::CSymulacja(CMapa* m, int cz, CObserwator* obs)
+/// @brief Ustawienie parametrów symulacji
+/// @param m Obiekt przechowywuj¹cy wszystkie elementy znajduj¹ce siê na mapie
+/// @param cz Czêstotliwoœæ odœwiezania symulacji
+/// @param obs Obserwator klasy zarz¹dzaniem pojazdów
+/// @param liczbaPojazdow Liczba pojazdów jaka ma zostaæ stworzona
+CSymulacja::CSymulacja(CMapa* m, int cz, CObserwator* obs, int liczbaPojazdow)
 {
     mapa = m;
-    zarzadaniePojazdami = new CZarzadzaniePojazdami(mapa);
+    zarzadaniePojazdami = new CZarzadzaniePojazdami(mapa, liczbaPojazdow);
     zarzadaniePojazdami->attach(obs);
     czestotliwosc = cz;
     start = clock();
@@ -21,13 +30,7 @@ CSymulacja::CSymulacja(CMapa* m, int cz, CObserwator* obs)
     elapsed = 0;
 }
 
-void CSymulacja::setMapa(CMapa* m, int cz)
-{
-    mapa = m;
-    czestotliwosc = cz;
-    zarzadaniePojazdami = new CZarzadzaniePojazdami(mapa);
-}
-
+/// @brief Uruchomienie jednego cyklu symulacji
 void CSymulacja::uruchom()
 {   /*
     now = clock();
@@ -44,7 +47,23 @@ void CSymulacja::uruchom()
     elapsed = double(now - start) / CLOCKS_PER_SEC;
     }while (elapsed < (1.0 / double(czestotliwosc)));
     start = now;
-    mapa->odswierz(czestotliwosc);
+    odswiez();
+}
+
+/// @brief Odœwie¿enie sygnalizacji œwietlnych i pojazdów
+void CSymulacja::odswiez()
+{
+    for (int i = 0; i < mapa->getSkrzyzowania().size(); i++)
+    {
+        for (int j = 0; j < mapa->getSkrzyzowania()[i]->getSwiatla().size(); j++)
+        {
+            mapa->getSkrzyzowania()[i]->getSwiatla()[j]->odswiez(czestotliwosc);
+        }
+    }
+    for (int i = 0; i < mapa->getPojazdy().size(); i++)
+    {
+        mapa->getPojazdy()[i]->odswiez(mapa->getDrogi(), mapa->getSkrzyzowania(), mapa->getPojazdy(), czestotliwosc);
+    }
 }
 
 

@@ -1,8 +1,12 @@
 #pragma once
+/// @file CZnak.h
+/// @brief Plik nag³ówkowy klasy CZnak
+
+/// @brief Klasa znaku
 class CZnak
 {
-	
-	char typ; // 0'U' - ust¹p perwszeñstwo, 1'P' - pierwszeñstwo przejazdu,2'R' - rondo
+	/// @brief Typ znaku: 'U' - ust¹p perwszeñstwo, 'P' - pierwszeñstwo przejazdu, 'R' - rondo
+	char typ;
 public:
 	CZnak(char); 
 	char getTyp();

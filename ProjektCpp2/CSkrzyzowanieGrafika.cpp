@@ -1,5 +1,12 @@
 #include "CSkrzyzowanieGrafika.h"
 
+/// @file CSkrzyzowanieGrafika.cpp
+/// @brief Plik Ÿród³owy klasy CSkrzyzowanieGrafika
+
+/// @brief Konstruktor klasy CSkrzyzowanieGrafika
+/// @param a Wspó³rzêdna X po³o¿enia skrzy¿owania
+/// @param b Wspo³rzêdna Y po³o¿ania skrzy¿owania
+/// @param rondo Czy dane skrzyzowanie jest rondem
 CSkrzyzowanieGrafika::CSkrzyzowanieGrafika(int a, int b, bool rondo)
 {
 	x = a;
@@ -7,6 +14,8 @@ CSkrzyzowanieGrafika::CSkrzyzowanieGrafika(int a, int b, bool rondo)
 	czyRondo = rondo;
 }
 
+/// @brief Rysuje skrzyzowanie w oknie programu
+/// @param window Okno programu
 void CSkrzyzowanieGrafika::rysuj(sf::RenderWindow* window)
 {
 	if (!czyRondo)

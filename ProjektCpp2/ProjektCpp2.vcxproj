@@ -154,10 +154,7 @@
     <ClCompile Include="CDroga.cpp" />
     <ClCompile Include="CDrogaGrafika.cpp" />
     <ClCompile Include="CGrafika.cpp" />
-    <ClCompile Include="CKierowca.cpp" />
     <ClCompile Include="CMapa.cpp" />
-    <ClCompile Include="CObserwator.cpp" />
-    <ClCompile Include="CObserwowana.cpp" />
     <ClCompile Include="COsobowy.cpp" />
     <ClCompile Include="CPojazd.cpp" />
     <ClCompile Include="CPojazdGrafika.cpp" />
@@ -168,6 +165,7 @@
     <ClCompile Include="CSymulacja.cpp" />
     <ClCompile Include="CUprzywilejowany.cpp" />
     <ClCompile Include="CWczytywaczMapy.cpp" />
+    <ClCompile Include="CWyswietlanie.cpp" />
     <ClCompile Include="CZarzadzanieGrafika.cpp" />
     <ClCompile Include="CZarzadzaniePojazdami.cpp" />
     <ClCompile Include="CZnak.cpp" />
@@ -178,7 +176,6 @@
     <ClInclude Include="CDroga.h" />
     <ClInclude Include="CDrogaGrafika.h" />
     <ClInclude Include="CGrafika.h" />
-    <ClInclude Include="CKierowca.h" />
     <ClInclude Include="CMapa.h" />
     <ClInclude Include="CObserwator.h" />
     <ClInclude Include="CObserwowana.h" />
@@ -192,10 +189,14 @@
     <ClInclude Include="CSymulacja.h" />
     <ClInclude Include="CUprzywilejowany.h" />
     <ClInclude Include="CWczytywaczMapy.h" />
+    <ClInclude Include="CWyswietlanie.h" />
     <ClInclude Include="CZarzadzanieGrafika.h" />
     <ClInclude Include="CZarzadzaniePojazdami.h" />
     <ClInclude Include="CZnak.h" />
     <ClInclude Include="CZnakGrafika.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

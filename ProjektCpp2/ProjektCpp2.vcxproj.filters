@@ -63,9 +63,6 @@
     <ClCompile Include="CUprzywilejowany.cpp">
       <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="CKierowca.cpp">
-      <Filter>Logika\Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="CZnakGrafika.cpp">
       <Filter>Grafika\Pliki źródłowe</Filter>
     </ClCompile>
@@ -80,12 +77,6 @@
     </ClCompile>
     <ClCompile Include="CDrogaGrafika.cpp">
       <Filter>Grafika\Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CObserwowana.cpp">
-      <Filter>Interfejs\Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="CObserwator.cpp">
-      <Filter>Interfejs\Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="CGrafika.cpp">
       <Filter>Grafika\Pliki źródłowe</Filter>
@@ -104,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="CZarzadzanieGrafika.cpp">
       <Filter>Grafika\Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CWyswietlanie.cpp">
+      <Filter>Logika\Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +123,6 @@
       <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CUprzywilejowany.h">
-      <Filter>Logika\Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="CKierowca.h">
       <Filter>Logika\Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="CZnakGrafika.h">
@@ -170,5 +161,11 @@
     <ClInclude Include="CZarzadzanieGrafika.h">
       <Filter>Grafika\Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="CWyswietlanie.h">
+      <Filter>Logika\Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

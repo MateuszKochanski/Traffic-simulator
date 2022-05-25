@@ -1,5 +1,15 @@
 #include "CDrogaGrafika.h"
+/**
+* @file CDrogaGrafika.cpp
+* @brief Plik Ÿród³owy klasy CDrogaGrafika
+*/
 
+
+/// @brief Konstruktor klasy CDrogaGrafika
+/// @param a Wspó³rzêdna X pocz¹tku drogi
+/// @param b Wspó³rzêdna Y pocz¹tku drogi
+/// @param dl D³ugoœæ drogi
+/// @param katt K¹t drogi
 CDrogaGrafika::CDrogaGrafika(int a, int b, int dl, double katt)
 {
 	x = a;
@@ -8,6 +18,8 @@ CDrogaGrafika::CDrogaGrafika(int a, int b, int dl, double katt)
 	kat = katt;
 }
 
+/// @brief Rysuje drogê w oknie programu
+/// @param window Okno programu
 void CDrogaGrafika::rysuj(sf::RenderWindow* window)
 {
 	sf::RectangleShape linia;

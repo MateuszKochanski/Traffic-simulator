@@ -1,15 +1,21 @@
 #include "CSwiatlaGrafika.h"
-/*
-void CSwiatlaGrafika::update()
-{
 
-}*/
+/// @file CSwiatlaGrafika.cpp
+/// @brief Plik Ÿród³owy klasy CSwiatlaGrafika
 
+/// @brief Aktualizacja aktualnego koloru œwiat³a
+/// @param kol Aktualny kolor œwat³a
 void CSwiatlaGrafika::update(int kol)
 {
 	kolor = kol;
 }
-
+/// @brief Konstruktor klasy CSwiatlaGrafika
+/// @param a Wspó³rzêdna X œrodka sygnalizacji
+/// @param b Wspó³rzêdna Y œrodka sygnalizacji
+/// @param katt K¹t sygnalizacji
+/// @param kol Pocz¹tkowy kolor œwiat³a sygnalizacji
+/// @param sinus Wartoœæ sinusa k¹ta sygnalizacji
+/// @param cosinus Wartoœæ cosinusa k¹ta sygnalizacji
 CSwiatlaGrafika::CSwiatlaGrafika(int a, int b, double katt, int kol, double sinus, double cosinus)
 {
 	x = a;
@@ -23,6 +29,8 @@ CSwiatlaGrafika::CSwiatlaGrafika(int a, int b, double katt, int kol, double sinu
 	kolor = kol;
 }
 
+/// @brief Rysuje sygnalizacjê œwietln¹ w oknie programu
+/// @param window Okno programu
 void CSwiatlaGrafika::rysuj(sf::RenderWindow* window)
 {
 	sf::RectangleShape podstawa;

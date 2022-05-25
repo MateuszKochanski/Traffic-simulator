@@ -2,24 +2,24 @@
 
 using namespace std;
 
-CWczytywaczMapy::CWczytywaczMapy()
-{
+/// @file CWczytywaczMapy.cpp
+/// @brief Plik Ÿród³owy klasy CWczytywaczMapy
 
-}
 
+/// @brief Konstruktor klasy CWczytywaczMapy
+/// @param mapa Obiekt przechowywuj¹cy wszystkie obiekty znajduj¹ce siê na mapie
+/// @param sciezka Œcie¿ka do pliku z map¹
 CWczytywaczMapy::CWczytywaczMapy(CMapa* mapa, string sciezka)
 {
 	wczytajMape(mapa, sciezka);
 }
 
-void CWczytywaczMapy::setMapa(CMapa* mapa, string sciezka)
-{
-	wczytajMape(mapa, sciezka);
-}
-
+/// @brief Wczytuje mapê z pliku o podanej œcie¿ce
+/// @param mapa Obiekt przechowywuj¹cy wszystkie obiekty znajduj¹ce siê na mapie
+/// @param sciezka Œcie¿ka do pliku z map¹
 void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 {
-	ifstream plik("mapa2.txt");
+	ifstream plik(sciezka);
 
 	string line;
 	string liczba;
@@ -35,6 +35,10 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 	CSkrzyzowanie* s1, * s2;
 	double dl;
 
+	CDroga* nowaDroga;
+	CSkrzyzowanie* noweSkrzyzowanie;
+	CSwiatla* noweSwiatla;
+
 	vector <int> drogiSw;
 	int czasSw = 0;
 
@@ -44,7 +48,7 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 		{
 			
 			getline(plik, line);
-			cout << line << endl;
+
 
 			if (line[0] == 'S')
 			{
@@ -54,7 +58,7 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				} while (line[0] != 'X');
 				line.erase(0, 1);
 
-				cout << line << endl;
+				
 				while (line[0] >= '0' && line[0] <= '9')
 				{
 					liczba += line[0];
@@ -71,7 +75,9 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				y = stoi(liczba);
 				liczba.clear();
 
-				mapa->dodajSkrzyzowanie(licznikS, x, y);
+				noweSkrzyzowanie = new CSkrzyzowanie(licznikS, x, y);
+
+				mapa->dodajSkrzyzowanie(noweSkrzyzowanie);
 				licznikS++;
 
 			}
@@ -84,7 +90,6 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 					line.erase(0, 1);
 				line.erase(0, 1);
 
-				cout << line << endl;
 				while (line[0] >= '0' && line[0] <= '9')
 				{
 					liczba += line[0];
@@ -94,7 +99,7 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				liczba.clear();
 				while (line[0] != 'S' && line[0] != 'Z')
 					line.erase(0, 1);
-				cout << line << endl;
+				
 				if (line[0] == 'Z')/////////////////////znaki na s1
 				{
 					line.erase(0, 1);
@@ -112,8 +117,6 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				}
 				else
 					line.erase(0, 1);
-
-				cout << line << endl;
 
 				while (line[0] >= '0' && line[0] <= '9')
 				{
@@ -143,9 +146,12 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 				dl = sqrt((double(s1->getX() - s2->getX())) * (double(s1->getX() - s2->getX())) + (double(s1->getY() - s2->getY())) * (double(s1->getY() - s2->getY())));
 				sinus = double(s2->getY() - s1->getY()) / dl;
 				cosinus = double((s2->getX() - s1->getX())) / dl;
-				mapa->dodajDroge(licznikD, ns1, ns2, dl, sinus, cosinus);
-				mapa->dodajDrDoSkrzyzowania(ns1, licznikD, znakiS1);
-				mapa->dodajDrDoSkrzyzowania(ns2, licznikD, znakiS2);
+
+				
+				nowaDroga = new CDroga(licznikD, ns1, ns2, dl, sinus, cosinus);
+				mapa->dodajDroge(nowaDroga);
+				mapa->getSkrzyzowania()[ns1]->dodajDroge(licznikD, znakiS1);
+				mapa->getSkrzyzowania()[ns2]->dodajDroge(licznikD, znakiS2);
 				licznikD++;
 			}
 			else if (line[0] == 'W')
@@ -174,7 +180,6 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 							if (line[0] == 'T')
 								a = true;
 						}
-						cout << "terrrr" << line << endl;
 						line.erase(0, 1);
 
 						while (line[0] >= '0' && line[0] <= '9')
@@ -194,10 +199,10 @@ void CWczytywaczMapy::wczytajMape(CMapa* mapa, string sciezka)
 						}
 					} while (!a);
 					line.erase(0, 1);
-					cout << line << endl;
 					//tutaj dodaæcwiatla jako 1 etap sekwencji
-					mapa->dodajSwiatla(ns1, drogiSw, czasSw);
 
+
+					mapa->getSkrzyzowania()[ns1]->dodajSwiatla(drogiSw, czasSw);
 					drogiSw.clear();
 				}while (line[0] != NULL);
 			}

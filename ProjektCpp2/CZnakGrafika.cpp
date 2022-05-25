@@ -1,5 +1,13 @@
 #include "CZnakGrafika.h"
 
+/// @file CZnakGrafika.cpp
+/// @brief Plik Ÿród³owy klasy CZnakGrafika
+
+/// @brief Konstruktor klasy CZnakGrafika
+/// @param a Wspó³rzêdna X po³o¿enia znaku
+/// @param b Wspó³rzêdna Y po³o¿enia znaku
+/// @param katt K¹t znaku
+/// @param tp Typ znaku (U - ust¹p pierwszeñstwo, P - droga z pierwszenstwem, R - rondo)
 CZnakGrafika::CZnakGrafika(int a, int b, double katt ,char tp)
 {
 	x = a;
@@ -8,6 +16,8 @@ CZnakGrafika::CZnakGrafika(int a, int b, double katt ,char tp)
 	typ = tp;
 }
 
+/// @brief Rysuje znak w oknie programu
+/// @param window Okno programu
 void CZnakGrafika::rysuj(sf::RenderWindow* window)
 {
 	if (typ == 'U')

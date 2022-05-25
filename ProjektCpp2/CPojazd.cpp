@@ -1,77 +1,61 @@
 #include "CPojazd.h"
 
-CPojazd::CPojazd(int id, vector <CSkrzyzowanie*> skrzyzowania, CDroga* droga, int odl, int kier)
-{
-	ID = id;
-	odleglosc = odl;
-	kierunek = kier;
-	idDrogi = droga->getID();
-	droga->dodajPojazd(ID, kierunek);
+/// @file CPojazd.cpp
+/// @brief Plik Ÿródowy klasy CPojazd
 
-	predkosc = 50;
-
-	if (kierunek == 0)
-	{
-		x = skrzyzowania[droga->getIdSk(kierunek)]->getX() + droga->getCosinus() * odleglosc - droga->getSinus() * 5.0;
-		y = skrzyzowania[droga->getIdSk(kierunek)]->getY() + droga->getSinus() * odleglosc + droga->getCosinus() * 5.0;
-		kat = droga->getKat();
-	}
-	else
-	{
-		x = skrzyzowania[droga->getIdSk(kierunek)]->getX() - droga->getCosinus() * odleglosc + droga->getSinus() * 5.0;
-		y = skrzyzowania[droga->getIdSk(kierunek)]->getY() - droga->getSinus() * odleglosc - droga->getCosinus() * 5.0;
-		kat = droga->getKat() + 180.0;
-	}
-	trybSkretu = false;
-	czyGotowyDoSkretu = false;
-	jestNastDroga = false;
-	promien = 10;
-	odlSkretu = 0;
-	wlasnieZmienionoDroge = false;
-	boPojazdyNaSkrzyzowaniu = false;
-	cierpliwosc = 5 + rand() % 10;
-}
-
+/// @brief Zwraca numer ID pojazdu
+/// @return Numer ID pojazdu
 int CPojazd::getID()
 {
 	return ID;
 }
 
+/// @brief Zwraca wspó³rzêdn¹ X pojazdu
+/// @return Wspó³rzêdna X pojazdu
 int CPojazd::getX()
 {
 	return x;
 }
 
+/// @brief Zwraca wspó³rzêdn¹ Y pojazdu
+/// @return Wspó³rzêdna Y pojazdu
 int CPojazd::getY()
 {
 	return y;
 }
-
+/// @brief Zwraca numer ID drogi po której jedzie pojazd
+/// @return Numer ID drogi
 int CPojazd::getIDDrogi()
 {
 	return idDrogi;
 }
 
+/// @brief Zwraca odleg³oœæ pojazdu od pocz¹tku drogi
+/// @return Odleg³oœæ pojazdu
 int CPojazd::getOdleglosc()
 {
 	return odleglosc;
 }
 
+/// @brief Zwraca k¹t pojazdu
+/// @return K¹t pojazdu
 double CPojazd::getKat()
 {
 	return kat;
 }
 
-void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowania, vector<CPojazd*> pojazdy, double czestotliwosc)
+/// @brief Odœwierza pozycje pojazdu
+/// @param drogi Tablica dróg
+/// @param skrzyzowania Tablica skrzy¿owañ
+/// @param pojazdy Tablica pojazdów
+/// @param czestotliwosc Czêstotliwoœæ odœwie¿ania pozycji pojazdu
+void CPojazd::odswiez(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowania, vector<CPojazd*> pojazdy, double czestotliwosc)
 {
 	if (kierunek == 0)
 		nieKierunek = 1;
 	else
 		nieKierunek = 0;
-	czyMogeJechac = true;
-
-
-
+	
 	if (!jestNastDroga)
 	{
 		do
@@ -79,439 +63,14 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 			idNastDrogi = skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[rand() % skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size()];
 		} while (idNastDrogi == idDrogi && skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() != 1);
 		jestNastDroga = true;
-		odswierzKolejnoscDrog(drogi, skrzyzowania);
+		odswiezKolejnoscDrog(drogi, skrzyzowania);
 	}
 
 
 	if (odleglosc < drogi[idDrogi]->getDlugosc())
 	{
-
-		if (drogi[idDrogi]->getPojazdy(kierunek).size() != 1)///////////////////////////samochod przed tob¹
-		{
-			for (int j = 0; j < drogi[idDrogi]->getPojazdy(kierunek).size(); j++)
-			{
-				if (pojazdy[drogi[idDrogi]->getPojazdy(kierunek)[j]]->getID() != ID && pojazdy[drogi[idDrogi]->getPojazdy(kierunek)[j]]->getOdleglosc() < odleglosc + 25 && pojazdy[drogi[idDrogi]->getPojazdy(kierunek)[j]]->getOdleglosc() > odleglosc)
-				{
-					czyMogeJechac = false;
-				}
-			}
-		}
-
-
-
-
-
-		if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getSwiatla().size() != 0 && odleglosc > drogi[idDrogi]->getDlugosc() - 30 && odleglosc < drogi[idDrogi]->getDlugosc() - 20)/////////////////////œwiatla
-		{
-			int i = 0;
-			while (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[i] != idDrogi)
-			{
-				i++;
-			}
-			if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getSwiatla()[i]->getKolor() != 1)
-				czyMogeJechac = false;
-			else
-			{
-				int i = 0;
-				while (kolejnoscDrog[i] != idNastDrogi)
-				{
-					i++;
-				}
-				i++;
-				if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > i)
-				{
-					for (int j = i; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)
-					{
-						if (idDrogi != kolejnoscDrog[j]) 
-						{
-							int l = 0;
-							while (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[l] != kolejnoscDrog[j])
-							{
-								l++;
-							}
-							if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getSwiatla()[l]->getKolor() == 1)
-							{
-								if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[j]]->getIdSk(0))
-								{
-
-									for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(1).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
-										{
-											if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getKatNastDrogi() > 140)
-											{
-												czyMogeJechac = false;
-											}	
-										}
-									}
-								}
-								else
-								{
-									for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(0).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
-										{
-											if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getKatNastDrogi() > 140)
-											{
-												czyMogeJechac = false;
-											}
-										}
-									}
-								}
-							}
-						}
-						
-					}
-				}
-			}
-		}
-		else if (!skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[0].empty() && odleglosc > drogi[idDrogi]->getDlugosc() - 30 && odleglosc < drogi[idDrogi]->getDlugosc() - 20)//znaki
-		{
-			
-			int z = 0;
-			while (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[z] != idDrogi)//szukam nr drogi który odpowiada za drogê po której jadê
-			{
-				z++;
-			}
-			bool pierwszenstwo = false;//zak³adam ¿e nie mam pierwszenstwa chyba ¿e któryœ ze znaków mówi inaczej
-			for (int i = 0; i < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[z].size(); i++)
-			{
-				if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[z][i]->getTyp() == 'P')
-				{
-					pierwszenstwo = true;
-				}
-			}
-
-			if (pierwszenstwo)																									//jeœli to droga z pierwszenstwem
-			{
-				int i = 0;
-				while (kolejnoscDrog[i] != idNastDrogi)
-				{
-					i++;
-				}
-				i++;																											//lecê od lewej do prawej a¿ do drogi gdzie chcê jechaæ i jeszcze o jedn¹ dalej
-				if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > i)								//je¿eli nie przesz³em przez wszystkie drogi, tzn. s¹ jakieœ drogi jeszcze do sprawdzenia
-				{
-					for (int j = i; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)			//iteracja po pozosta³ych drogach
-					{
-						if (idDrogi != kolejnoscDrog[j])																		//jeœli to nie jest droga po której jadê
-						{
-							int l = 0;
-							while (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[l] != kolejnoscDrog[j])		// szukam wartoœci która odpowiada numerowi kolejnej drogi w skrzyzowaniu 
-							{
-								l++;
-							}
-							for (int m = 0; m < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[l].size(); m++)	//iterujê po wszystkich znakach na danej drodze
-							{
-								if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[l][m]->getTyp() == 'P')		//je¿eli jest znak droga z pierwszenstwem
-								{
-									if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[j]]->getIdSk(0))			//je¿eli to jest 0 skrzyzowanie danej drogi
-									{
-
-										for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(1).size(); k++)					//iteruje po liœcie pojazdów nr1.
-										{
-											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)//je¿eli na danej drodze jest pojazd bli¿ej ni¿ 40 jednostek
-											{			
-												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
-												{
-													if (idDrogi != kolejnoscDrog[j + 1])
-													{
-														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getKatNastDrogi() > 140)
-														{
-															czyMogeJechac = false;
-														}
-													}
-												}
-												else
-													czyMogeJechac = false;
-											}
-										}
-									}
-									else
-									{
-										for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(0).size(); k++)
-										{
-											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
-											{
-
-												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
-												{
-													if (idDrogi != kolejnoscDrog[j + 1])
-													{
-														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getKatNastDrogi() > 140)
-														{
-															czyMogeJechac = false;
-														}
-													}
-												}
-												else
-													czyMogeJechac = false;
-
-											}
-										}
-									}
-								}
-							}
-						}
-
-					}
-				}
-			}
-			else
-			{
-				for (int i = 0; i < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); i++)
-				{
-
-					if (idDrogi != kolejnoscDrog[i])
-					{
-						int l = 0;
-						while (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi()[l] != kolejnoscDrog[i])
-						{
-							l++;
-						}
-						for (int m = 0; m < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[l].size(); m++)
-						{
-							if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getZnaki()[l][m]->getTyp() == 'P')
-							{
-								if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[i]]->getIdSk(0))
-								{
-
-									for (int k = 0; k < drogi[kolejnoscDrog[i]]->getPojazdy(1).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(1)[k]]->getOdleglosc() < 60)
-										{
-											czyMogeJechac = false;
-										}
-									}
-								}
-								else
-								{
-									for (int k = 0; k < drogi[kolejnoscDrog[i]]->getPojazdy(0).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[i]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[i]]->getPojazdy(0)[k]]->getOdleglosc() < 60)
-										{
-
-											czyMogeJechac = false;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				int i = 0;
-				if (czyMogeJechac)
-				{
-
-					if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > 2)
-					{
-						while (kolejnoscDrog[i] != idNastDrogi)
-						{
-							i++;
-						}
-						i++;
-						if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > i)
-						{
-							for (int j = i; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)
-							{
-								if (idDrogi != kolejnoscDrog[j])
-								{
-									if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[j]]->getIdSk(0))
-									{
-										for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(1).size(); k++)
-										{
-											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
-											{
-												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
-												{
-													if (idDrogi != kolejnoscDrog[j + 1])
-													{
-														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getKatNastDrogi() > 140)
-														{
-															czyMogeJechac = false;
-														}
-													}
-												}
-												else
-													czyMogeJechac = false;
-
-											}
-										}
-									}
-									else
-									{
-										for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(0).size(); k++)
-										{
-											if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
-											{
-												if (j + 1 < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size())
-												{
-													if (idDrogi != kolejnoscDrog[j + 1])
-													{
-														if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getKatNastDrogi() > 140)
-														{
-															czyMogeJechac = false;
-														}
-													}
-												}
-												else
-													czyMogeJechac = false;
-											}
-										}
-									}
-								}
-
-							}
-						}
-					}
-				}
-
-			}
-			
-		}
-		else if (odleglosc > drogi[idDrogi]->getDlugosc() - 30 && odleglosc < drogi[idDrogi]->getDlugosc() - 20)/////////////////////ZPR
-		{
-			int i = 0;
-			if (czyMogeJechac)
-			{
-				
-				if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > 2)
-				{
-				while (kolejnoscDrog[i] != idNastDrogi)
-				{
-					i++;
-				}
-					i++;
-					if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > i)
-					{
-						for (int j = i; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)
-						{
-							if (idDrogi != kolejnoscDrog[j])
-							{
-								if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[j]]->getIdSk(0))
-								{
-									for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(1).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
-										{
-											czyMogeJechac = false;
-										}
-									}
-								}
-								else
-								{
-									for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(0).size(); k++)
-									{
-										if (drogi[kolejnoscDrog[j]]->getDlugosc() - pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
-										{
-											czyMogeJechac = false;
-										}
-									}
-								}
-							}
-					
-						}
-					}
-				}
-			
-				if (!czyMogeJechac)
-					licznikCzekania += 1.0 / czestotliwosc;
-
-				if (licznikCzekania > cierpliwosc && (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() == 0 || skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() == ID))
-				{
-					czyMogeJechac = true;
-				}
-			}
-			
-
-				
-			////////////////////////////////////////////////////czy nie ma samochodu w³aœnie zje¿dzaj¹cego ze skrzyzowania
-			
-		}
-		if (odleglosc > drogi[idDrogi]->getDlugosc() - 30 && odleglosc < drogi[idDrogi]->getDlugosc() - 20)
-		{
-			int i = 0;
-			while (kolejnoscDrog[i] != idNastDrogi)
-			{
-				i++;
-			}
-			
-			if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size() > i)
-			{
-				for (int j = i; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)
-				{
-					if (idDrogi != kolejnoscDrog[j])
-					{
-						if (drogi[idDrogi]->getIdSk(nieKierunek) == drogi[kolejnoscDrog[j]]->getIdSk(0))
-						{
-							for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(0).size(); k++)
-							{
-								if (kolejnoscDrog[j] == idNastDrogi)
-								{
-									if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 40)
-									{
-										czyMogeJechac = false;
-									}
-								}
-								else
-								{
-									if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(0)[k]]->getOdleglosc() < 25)
-									{
-										czyMogeJechac = false;
-									}
-								}
-
-							}
-						}
-						else
-						{
-							for (int k = 0; k < drogi[kolejnoscDrog[j]]->getPojazdy(1).size(); k++)
-							{
-								if (kolejnoscDrog[j] == idNastDrogi)
-								{
-									if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 40)
-									{
-										czyMogeJechac = false;
-									}
-								}
-								else
-								{
-									if (pojazdy[drogi[kolejnoscDrog[j]]->getPojazdy(1)[k]]->getOdleglosc() < 25)
-									{
-										czyMogeJechac = false;
-									}
-								}
-
-							}
-						}
-					}
-				}
-			}
-		}
 		
-
-		if (licznikCzekania > cierpliwosc && (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() == 0) && czyMogeJechac)
-		{
-			skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->setBufor(ID);
-		}
-
-		if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() == ID && !czyMogeJechac)
-		{
-			skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->setBufor(0);
-			licznikCzekania = 0;
-		}
-
-		if (skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() != ID && skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getBufor() != 0 && odleglosc > drogi[idDrogi]->getDlugosc() - 30 && odleglosc < drogi[idDrogi]->getDlugosc() - 20)
-		{
-			czyMogeJechac = false;
-		}
-		
-		if (skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getBufor() == ID && odleglosc > 30)
-		{
-			skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->setBufor(0);	
-		}
-
-		if (czyMogeJechac)
+		if (sprawdzCzyMogeJechac(drogi, skrzyzowania, pojazdy, czestotliwosc))
 		{
 			odleglosc += predkosc / czestotliwosc;
 			if (trybSkretu)
@@ -545,7 +104,6 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 				sx = double(skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getX()) + cos(katPoczatkowy * (3.1416 / 180.0)) * (drogi[idDrogi]->getDlugosc() - odlegloscRozpoczeciaSkretu) + sin(katPoczatkowy * (3.1416 / 180.0)) * (promien + 5.0);
 				sy = double(skrzyzowania[drogi[idDrogi]->getIdSk(kierunek)]->getY()) + sin(katPoczatkowy * (3.1416 / 180.0)) * (drogi[idDrogi]->getDlugosc() - odlegloscRozpoczeciaSkretu) - cos(katPoczatkowy * (3.1416 / 180.0)) * (promien + 5.0);
 			}
-			//cout << "//////////" << kat  << "  " <<  katPoczatkowy<< endl;
 			odlSkretu = 0;
 			czyGotowyDoSkretu = 1;
 			
@@ -576,14 +134,10 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 			}
 		}
 
-
-
 		if (trybSkretu)
 		{
 
 			kat = katPoczatkowy - ((180.0 - katNastDrogi) * odlSkretu) / (2.0 * odlegloscRozpoczeciaSkretu);
-			
-			//cout << kat <<"   " << katPoczatkowy << endl;
 
 		}
 		else
@@ -618,14 +172,6 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 
 			idDrogi = idNastDrogi;
 
-			//if (kierunek == 0)
-			//{
-			//	kat = drogi[idDrogi]->getKat();
-			//}
-			//else
-			//{
-			//	kat = drogi[idDrogi]->getKat() + 180.0;
-			//}
 			drogi[idDrogi]->dodajPojazd(ID, kierunek);
 		}
 		jestNastDroga = false;
@@ -637,32 +183,38 @@ void CPojazd::odswierz(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowani
 	notify();
 }
 
+/// @brief Zwraca promieñ skrêtu pojazdu
+/// @return Promieñ skrêtu
 double CPojazd::getPromien()
 {
 	return promien;
 }
 
+/// @brief Zwraca kierunek skrêtu pojazdu
+/// @return Kierunek skrêtu
 bool CPojazd::getKierunekSkretu()
 {
 	return kierunekSkretu;
 }
 
+/// @brief Zwraca wspó³rzêdn¹ X œrodka obrotu grafiki przy skrêcie
+/// @return Wspó³rzêdna X œrodka obrotu
 double CPojazd::getSx()
 {
 	return sx;
 }
 
+/// @brief Zwraca wsp³rzêdn¹ Y œrodka obrotu grafiki przy skrêcie
+/// @return Wspó³rzêdna Y œrodka obrotu
 double CPojazd::getSy()
 {
 	return sy;
 }
 
-bool CPojazd::czyStoi()
-{
-	return !czyMogeJechac;
-}
-
-void CPojazd::odswierzKolejnoscDrog(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowania)
+/// @brief Ponownie wyznacza tablice "kolejnoscDrog" i "katy"
+/// @param drogi Tablica dróg
+/// @param skrzy¿owania Tablica skrzy¿owañ
+void CPojazd::odswiezKolejnoscDrog(vector<CDroga*> drogi, vector<CSkrzyzowanie*> skrzyzowania)
 {
 	delete[] kolejnoscDrog;
 	delete[] katy;
@@ -707,30 +259,37 @@ void CPojazd::odswierzKolejnoscDrog(vector<CDroga*> drogi, vector<CSkrzyzowanie*
 			}
 		}
 	}
-	cout << "--------------" << kat << endl;
-	for (int j = 0; j < skrzyzowania[drogi[idDrogi]->getIdSk(nieKierunek)]->getIdDrogi().size(); j++)///wyswietlenie
-	{
-		cout << kolejnoscDrog[j] << "  " << katy[j] << endl;
-	}
 }
 
-
-
+/// @brief Zwraca k¹t nastêpnej drogi
+/// @return K¹t nastêpnej drogi
 double CPojazd::getKatNastDrogi()
 {
 	return katNastDrogi;
 }
 
+/// @brief Zwraca czy dany dany pojazd jest uprzywilejowany
+/// @return Czy pojazd jest uprzywilejowany
+bool CPojazd::getCzyUprzywilejowany()
+{
+	return czyUprzywilejowany;
+}
+
+/// @brief Dodaje obserwatora do tablicy obserwatorów
+/// @param obs Obserwator
 void CPojazd::attach(CObserwator* obs)
 {
 	obserwatorzy.push_back(obs);
 }
 
-void CPojazd::detach(CObserwator*)
+/// @brief Usuwa obserwatora z tablicy obserwatorów
+/// @param obs Obserwator
+void CPojazd::detach(CObserwator* obs)
 {
 
 }
 
+/// @brief Powiadamia obserwatorów
 void CPojazd::notify()
 {
 	for (int i = 0; i < obserwatorzy.size(); i++)

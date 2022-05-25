@@ -2,6 +2,16 @@
 #include <cmath>
 #include "iostream"
 
+/// @file CDroga.cpp
+/// @brief Plik Ÿród³owy klasy CDroga
+
+/// @brief Konstruktor klasy CDroga
+/// @param id Numer ID drogi
+/// @param s1 Numer id 1 skrzyzowania
+/// @param s2 Numer id 2 skrzyzowania
+/// @param dl D³ugoœæ drogi
+/// @param s Sinus k¹ta drogi
+/// @param c Cosinus k¹ta drogi
 CDroga::CDroga(int id, int s1, int s2, double dl, double s, double c)
 {
 	ID = id;
@@ -22,21 +32,30 @@ CDroga::CDroga(int id, int s1, int s2, double dl, double s, double c)
 		kat = 180.0 - asin(sinus) * (180.0 / 3.14);
 }
 
+
+/// @brief Zwraca ID drogi
+/// @return Numer ID
 int CDroga::getID()
 {
 	return ID;
 }
+/// @brief Zwraca d³ugoœæ drogi
+/// @return D³ugoœæ drogi
 double CDroga::getDlugosc()
 {
 	return dlugosc;
 }
 
-
+/// @brief Zwraca k¹t drogi
+/// @return K¹t drogi
 double CDroga::getKat()
 {
 	return kat;
 }
 
+/// @brief Dodaje pojazd do tablicy pojazdów
+/// @param id Numer ID pojazdu
+/// @param kierunek Kierunek w którym porusza siê pojazd
 void CDroga::dodajPojazd(int id, int kierunek)
 {
 	if (kierunek == 0)
@@ -49,6 +68,9 @@ void CDroga::dodajPojazd(int id, int kierunek)
 	}
 }
 
+/// @brief Zwraca tablicê pojazdów poruszaj¹cych siê po danej drodze w danym kierunku
+/// @param kierunek Kierunek poruszania siê pojazdu
+/// @return Tablica pojazdów
 vector<int> CDroga::getPojazdy(int kierunek)
 {
 	if (kierunek == 0)
@@ -61,6 +83,9 @@ vector<int> CDroga::getPojazdy(int kierunek)
 	}
 }
 
+/// @brief Usuwa pojazd z drogi
+/// @param id Numer ID pojazdu
+/// @param kierunek Kierunek poruszania siê pojazdu
 void CDroga::usunPojazd(int id, int kierunek)
 {
 	vector <int>::iterator it;
@@ -87,21 +112,23 @@ void CDroga::usunPojazd(int id, int kierunek)
 	}
 }
 
+/// @brief Zwraca wartoœæ sinusa k¹ta drogi
+/// @return Sinus k¹ta drogi
 double CDroga::getSinus()
 {
 	return sinus;
 }
 
+/// @brief Zwraca wartoœæ cosinusa k¹ta drogi
+/// @return Cosinus k¹ta drogi
 double CDroga::getCosinus()
 {
 	return cosinus;
 }
 
-int CDroga::getSzerokosc()
-{
-	return szerokosc;
-}
-
+/// @brief Zwraca numer ID jednego ze skrzy¿owañ, które ³¹czy droga
+/// @param i Numer skrzy¿owania
+/// @return Numer ID skrzy¿owania
 int CDroga::getIdSk(int i)
 {
 	return id_Sk[i];

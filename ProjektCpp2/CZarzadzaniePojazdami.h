@@ -2,7 +2,13 @@
 #include "CMapa.h"
 #include <cstdlib>
 #include <ctime>
+#include "CUprzywilejowany.h"
+#include "COsobowy.h"
 
+/// @file CZarzadzaniePojazdami.h
+/// @brief Plik nag³ówkowy klasy CZarzadzaniePojazdami
+
+/// @brief Klasa tworz¹ca pojazdy na mapie
 class CZarzadzaniePojazdami : public CObserwowana
 {
 	CMapa* mapa;
@@ -12,7 +18,6 @@ class CZarzadzaniePojazdami : public CObserwowana
 	vector <CObserwator*> obserwatorzy;
 public:
 	CZarzadzaniePojazdami(CMapa *m, int ile = 50);
-	void odswierz();
 	void attach(CObserwator*);
 	void detach(CObserwator*);
 	void notify();
