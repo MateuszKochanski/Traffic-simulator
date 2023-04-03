@@ -6,9 +6,10 @@ This simulator allows you to observe traffic on a map consisting of intersection
 ![Imagej](https://github.com/MateuszKochanski/Map-generator/blob/main/images/panel.jpg)
 
 ## Example
-This is one of the maps generated:
-![Image](https://github.com/MateuszKochanski/Map-generator/blob/main/images/mapa.jpg)
+Below are two images showing the programme window.
+![Image](https://github.com/MateuszKochanski/Traffic-simulator/blob/master/images/okno1.png)
+![Image](https://github.com/MateuszKochanski/Traffic-simulator/blob/master/images/okno2.png)
 
 ## Used
 
-[Qt](https://www.qt.io/product/development-tools)
+[Microsoft Visual Studio](https://visualstudio.microsoft.com/pl/), [SFML](https://www.sfml-dev.org/)
